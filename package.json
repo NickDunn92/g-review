@@ -1,0 +1,18 @@
+{
+  "name": "g-review",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/NickDunn92/g-review.git",
+  "author": "Nick Dunn <nickdunn92@icloud.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0",
+    "nodemon": "^1.19.1"
+  }
+}
