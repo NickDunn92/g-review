@@ -35,6 +35,6 @@ router.get('/:id', async (req, res) => {
   if (!game) return res.status(404).send('The movie with the given ID was not found.');
 
   res.send(game);
-})
+});
 
 module.exports = router;
