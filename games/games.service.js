@@ -5,9 +5,10 @@ exports.getGames = async () => {
   return games;
 }
 
-exports.addGame = async (name) => {
+exports.addGame = async (name, genre) => {
   const game = new Game({
-    name
+    name,
+    genre
   });
 
   await game.save();

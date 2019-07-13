@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getGames, addGame, updateGame, removeGame } = require('./games.service');
+const { getGenre } = require('../genres/genres.service');
 
 router.get('/', async (req, res) => {
   const games = await getGames();
@@ -8,13 +9,24 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { name } = req.body;
-  const game = await addGame(name);
+  const { name, genreId } = req.body;
+  const genre = await getGenre(genreId);
+
+  const game = await addGame(name, genre);
+
   res.send(game);
 });
 
 router.put('/:id', async (req, res) => {
-  const game = await updateGame(req.params.id, { name: req.body.name }, {
+  const { name, genreId } = req.body;
+  const genre = await getGenre(genreId);
+
+  const game = await updateGame(req.params.id, 
+    { 
+      name,
+      genre 
+    }, 
+    {
     new: true
   });
   

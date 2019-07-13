@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { genreSchema } = require('../genres/genres.schema');
 
 const Game = mongoose.model('Game', new mongoose.Schema({
   name: {
@@ -6,7 +7,8 @@ const Game = mongoose.model('Game', new mongoose.Schema({
     required: true,
     minlength: 1,
     maxlength: 200
-  }
+  },
+  genre: genreSchema
 }));
 
 exports.Game = Game;
