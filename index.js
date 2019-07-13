@@ -9,11 +9,13 @@ mongoose.connect('mongodb://localhost/greview')
 
 const gameRoutes = require('./games/games.controller');
 const genreRoutes = require('./genres/genres.controller');
+const userRoutes = require('./users/users.controller');
 
 app.use(bodyParser.json());
 app.use(express.json());
 app.use('/games', gameRoutes);
 app.use('/genres', genreRoutes);
+app.use('/users', userRoutes);
 
 app.listen(8080, ()=> {
   console.log('Listening on 8080');

@@ -5,6 +5,11 @@ exports.getGenres = async () => {
     return genres;
 }
 
+exports.getGenre = async (id) => {
+  const genre = await Genre.findById(id);
+  return genre;
+}
+
 exports.addGenre = async (name) => {
     const genre = new Genre({
       name
