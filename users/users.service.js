@@ -17,8 +17,8 @@ exports.addUser = async (username, email, firstname, lastname) => {
   return user;
 }
 
-exports.getUser = async () => {
-  const user = await User.findById();
+exports.getUser = async (id) => {
+  const user = await User.findById(id);
   return user;
 }
 
