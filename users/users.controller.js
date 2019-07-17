@@ -8,8 +8,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { username, email, firstname, lastname, age } = req.body;
-  const user = await addUser(username, email, firstname, lastname, age);
+  const { username, email, firstname, lastname, age: dateOfBirth } = req.body;
+  const user = await addUser(username, email, firstname, lastname, dateOfBirth);
   res.send(user);
 });
 

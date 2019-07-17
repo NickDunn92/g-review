@@ -5,13 +5,13 @@ exports.getUsers = async () => {
   return users;
 };
 
-exports.addUser = async (username, email, firstname, lastname, age) => {
+exports.addUser = async (username, email, firstname, lastname, dateOfBirth) => {
   const user = new User({
     username,
     email,
     firstname,
     lastname,
-    age
+    age: dateOfBirth
   });
 
   await user.save();

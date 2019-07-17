@@ -25,8 +25,8 @@ const User = mongoose.model(
       minlength: 3,
       maxlength: 10
     },
-    age: {
-      type: Number,
+    dateOfBirth: {
+      type: Date,
       required: true
     }
   })
