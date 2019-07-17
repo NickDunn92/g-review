@@ -11,7 +11,7 @@ exports.addUser = async (username, email, firstname, lastname, dateOfBirth) => {
     email,
     firstname,
     lastname,
-    age: dateOfBirth
+    dateOfBirth
   });
 
   await user.save();
