@@ -1,9 +1,9 @@
-const { Game } = require('./games.schema');
+const { Game } = require("./games.schema");
 
 exports.getGames = async () => {
   const games = await Game.find();
   return games;
-}
+};
 
 exports.addGame = async (name, genre) => {
   const game = new Game({
@@ -13,14 +13,14 @@ exports.addGame = async (name, genre) => {
 
   await game.save();
   return game;
-}
+};
 
-exports.updateGame = async (id, name) => {
-  const game = await Game.findByIdAndUpdate(id, name);
-  return game;
-}
+exports.updateGame = async (id, updatedGame) => {
+  await Game.findByIdAndUpdate({ id }, updatedGame);
+  return updatedGame;
+};
 
-exports.removeGame = async (id) => {
+exports.removeGame = async id => {
   const game = await Game.findByIdAndRemove(id);
-  return;
-}
+  return game;
+};

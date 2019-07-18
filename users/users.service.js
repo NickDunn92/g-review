@@ -18,6 +18,11 @@ exports.addUser = async (username, email, firstname, lastname, dateOfBirth) => {
   return user;
 };
 
+exports.updateUser = async (id, updatedUser) => {
+  await User.findByIdAndUpdate({ id }, updatedUser);
+  return updatedUser;
+};
+
 exports.getUser = async id => {
   const user = await User.findById(id);
   return user;
