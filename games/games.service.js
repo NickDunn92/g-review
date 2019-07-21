@@ -5,10 +5,17 @@ exports.getGames = async () => {
   return games;
 };
 
-exports.addGame = async (name, genre) => {
+exports.getGame = async id => {
+  const game = await Game.findById(id);
+  return game;
+};
+
+exports.addGame = async (name, genres, description, ageRating) => {
   const game = new Game({
     name,
-    genre
+    genres,
+    description,
+    ageRating
   });
 
   await game.save();
@@ -16,7 +23,7 @@ exports.addGame = async (name, genre) => {
 };
 
 exports.updateGame = async (id, updatedGame) => {
-  await Game.findByIdAndUpdate({ id }, updatedGame);
+  await Game.findByIdAndUpdate(id, updatedGame);
   return updatedGame;
 };
 

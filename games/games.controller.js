@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getGames,
+  getGame,
   addGame,
   updateGame,
   removeGame
@@ -14,21 +15,35 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, genreId } = req.body;
-  const genre = await getGenre(genreId);
+  const { name, genres, description, ageRating } = req.body;
 
-  const game = await addGame(name, genre);
+  const genreObjects = [];
+
+  genres.map(async g => {
+    let genre = await getGenre(g);
+    genreObjects.push(genre);
+  });
+
+  const game = await addGame(name, genreObjects, description, ageRating);
 
   res.send(game);
 });
 
 router.put("/:id", async (req, res) => {
-  const { name, genreId } = req.body;
-  const genre = await getGenre(genreId);
+  const { name, genres, description, ageRating } = req.body;
+
+  const genreObjects = [];
+
+  genres.map(async g => {
+    let genre = await getGenre(g);
+    genreObjects.push(genre);
+  });
 
   const game = await updateGame(req.params.id, {
     name,
-    genre
+    genreObjects,
+    description,
+    ageRating
   });
 
   if (!game)
@@ -44,7 +59,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const game = await Games.findById(req.params.id);
+  const game = await getGame(req.params.id);
 
   if (!game)
     return res.status(404).send("The movie with the given ID was not found.");
