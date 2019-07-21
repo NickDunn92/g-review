@@ -41,7 +41,7 @@ router.put("/:id", async (req, res) => {
 
   const game = await updateGame(req.params.id, {
     name,
-    genreObjects,
+    genres: genreObjects,
     description,
     ageRating
   });
