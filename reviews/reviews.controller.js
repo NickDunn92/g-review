@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
+  getReviews,
   getReview,
   addReview,
   updateReview,
@@ -8,6 +9,11 @@ const {
 } = require("./reviews.service");
 const { getUser } = require("../users/users.service");
 const { getGame } = require("../games/games.service");
+
+router.get("/:id", async (req, res) => {
+  const reviews = await getReviews();
+  res.send(reviews);
+});
 
 router.post("/", async (req, res) => {
   const { games, users, content, datePosted } = req.body;

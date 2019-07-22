@@ -1,5 +1,10 @@
 const { Review } = require("./reviews.schema");
 
+exports.getReviews = async () => {
+  const reviews = await Review.find();
+  return reviews;
+};
+
 exports.getReview = async id => {
   const review = await Review.findById(id);
   return review;
