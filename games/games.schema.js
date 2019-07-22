@@ -23,4 +23,7 @@ const Game = mongoose.model(
   })
 );
 
+const Game = mongoose.model("Game", gameSchema);
+
 exports.Game = Game;
+exports.gameSchema = gameSchema;
