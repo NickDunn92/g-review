@@ -10,12 +10,12 @@ exports.getReview = async id => {
   return review;
 };
 
-exports.addReview = async (games, users, content, datePosted) => {
+exports.addReview = async (game, user, content, datePosted) => {
   const review = new Review({
-    games,
-    users,
+    game,
+    user,
     content,
-    datePosted
+    datePosted: new Date()
   });
 
   await review.save();
@@ -28,6 +28,6 @@ exports.updateReview = async (id, updatedReview) => {
 };
 
 exports.removeReview = async id => {
-  const review = await Review.findByIdAndRemove(id);
-  return review;
+  await Review.findByIdAndRemove(id);
+  return;
 };

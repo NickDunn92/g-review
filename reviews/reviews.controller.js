@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getReviews,
   getReview,
   addReview,
   updateReview,
@@ -11,52 +10,36 @@ const { getUser } = require("../users/users.service");
 const { getGame } = require("../games/games.service");
 
 router.get("/:id", async (req, res) => {
-  const reviews = await getReviews();
-  res.send(reviews);
+  const review = await getReview(req.params.id);
+  res.send(review);
 });
 
 router.post("/", async (req, res) => {
-  const { games, users, content, datePosted } = req.body;
+  const { gameId, userId, content, datePosted } = req.body;
 
-  const gameObjects = [];
+  if (!gameId) return res.status(404).send("No game ID found");
 
-  games.map(async g => {
-    let game = await getGame(g);
-    gameObjects.push(game);
-  });
+  if (!userId || userId === "") return res.status(404).send("No user ID found");
 
-  const userObjects = [];
+  const gameObject = await getGame(gameId);
 
-  users.map(async u => {
-    let user = await getUser(u);
-    userObjects.push(user);
-  });
+  const userObject = await getUser(userId);
 
-  const review = await addReview(games, users, content, datePosted);
+  const review = await addReview(gameObject, userObject, content, datePosted);
 
   res.send(review);
 });
 
 router.put("/:id", async (req, res) => {
-  const { games, users, content, datePosted } = req.body;
+  const { gameId, userId, content, datePosted } = req.body;
 
-  const gameObjects = [];
+  const gameObject = await getGame(gameId);
 
-  games.map(async g => {
-    let game = await getGame(g);
-    gameObjects.push(game);
-  });
-
-  const userObjects = [];
-
-  users.map(async u => {
-    let user = await getUser(u);
-    userObjects.push(user);
-  });
+  const userObject = await getUser(userId);
 
   const review = await updateReview(req.params.id, {
-    games,
-    users,
+    gameObject,
+    userObject,
     content,
     datePosted
   });
@@ -71,15 +54,6 @@ router.delete("/:id", async (req, res) => {
   await removeReview(req.params.id);
 
   res.status(200).send();
-});
-
-router.get("/:id", async (req, res) => {
-  const review = await getReview(req.params.id);
-
-  if (!review)
-    return res.status(404).send("The review with the given ID was not found.");
-
-  res.send(review);
 });
 
 module.exports = router;

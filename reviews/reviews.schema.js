@@ -5,8 +5,8 @@ const { userSchema } = require("../users/users.schema");
 const Review = mongoose.model(
   "Review",
   new mongoose.Schema({
-    games: [gameSchema],
-    user: [userSchema],
+    game: gameSchema,
+    user: userSchema,
     content: {
       type: String,
       required: true,
