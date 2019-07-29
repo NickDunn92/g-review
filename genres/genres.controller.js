@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getGenres, addGenre } = require('./genres.service');
+const { getGenres, addGenre } = require("./genres.service");
 
-router.get('/', async (req, res) => {
-    const genres = await getGenres();
-    res.send(genres);
+router.get("/", async (req, res) => {
+  const genres = await getGenres();
+  res.send(genres);
 });
 
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const { name } = req.body;
   const genre = await addGenre(name);
   res.send(genre);
