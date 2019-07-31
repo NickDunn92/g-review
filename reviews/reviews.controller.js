@@ -11,6 +11,10 @@ const { getGame } = require("../games/games.service");
 
 router.get("/:id", async (req, res) => {
   const review = await getReview(req.params.id);
+
+  if (!review)
+    return res.status(404).send("The review with the given ID was not found");
+  
   res.send(review);
 });
 
@@ -27,7 +31,7 @@ router.post("/", async (req, res) => {
 
   const review = await addReview(gameObject, userObject, content, datePosted);
 
-  res.send(review);
+  res.status(201).send(review);
 });
 
 router.put("/:id", async (req, res) => {
