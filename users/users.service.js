@@ -19,7 +19,7 @@ exports.addUser = async (username, email, firstname, lastname, dateOfBirth) => {
 };
 
 exports.updateUser = async (id, updatedUser) => {
-  await User.findByIdAndUpdate({ id }, updatedUser);
+  await User.findByIdAndUpdate(id, updatedUser);
   return updatedUser;
 };
 
