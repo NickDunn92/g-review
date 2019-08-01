@@ -3,21 +3,37 @@ const router = express.Router();
 const { getGenre, getGenres, addGenre } = require("./genres.service");
 
 router.get("/", async (req, res) => {
-  const genres = await getGenres();
-  res.send(genres);
+  try {
+    const genres = await getGenres();
+
+    res.send(genres);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 router.get("/:id", async (req, res) => {
-  const genre = await getGenre(req.params.id);
-  if (!genre) res.status(404).send('Unable to find genre with this ID!');
+  try {
+    const { id } = req.params;
+    const genre = await getGenre(id);
 
-  res.send(genre);
+    if (!genre) res.status(404).send("Unable to find genre with this ID!");
+
+    res.send(genre);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 router.post("/", async (req, res) => {
-  const { name } = req.body;
-  const genre = await addGenre(name);
-  res.send(genre);
+  try {
+    const { name } = req.body;
+    const genre = await addGenre(name);
+
+    res.send(genre);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 module.exports = router;
